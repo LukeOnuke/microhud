@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.lukeonuke.minihud.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "hud.GameScreenOverlay"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
