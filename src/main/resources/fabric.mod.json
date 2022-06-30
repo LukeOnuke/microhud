@@ -9,12 +9,12 @@
     "lukeonuke"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/LukeOnuke/microhud",
+    "sources": "https://github.com/LukeOnuke/microhud"
   },
 
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/microhud/icon.png",
 
   "environment": "client",
   "entrypoints": {
@@ -23,7 +23,7 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "microhud.mixins.json"
   ],
 
   "depends": {
