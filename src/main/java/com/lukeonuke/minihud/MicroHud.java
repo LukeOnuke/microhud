@@ -8,6 +8,7 @@ public class MicroHud implements ModInitializer {
     @Override
     public void onInitialize() {
         Logger logger = LoggerFactory.getLogger("microhud");
+
         logger.info("Microhud initialised");
     }
 }
