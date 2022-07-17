@@ -1,5 +1,7 @@
 package com.lukeonuke.minihud.mixin.hud;
 
+import com.lukeonuke.minihud.MicroHud;
+import com.lukeonuke.minihud.gui.OptionsScreen;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.DebugHud;
@@ -16,11 +18,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GameScreenOverlay {
     @Shadow private int scaledWidth;
 
-    @Shadow @Final private DebugHud debugHud;
-
     @Inject(at = @At("HEAD"), method = "render")
     void onHudRender(MatrixStack matrixStack, float tickDelta, CallbackInfo ci){
         if (!MinecraftClient.getInstance().options.debugEnabled) MicroHudRenderer.getInstance().render(matrixStack, tickDelta, scaledWidth);
+
     }
 
 }

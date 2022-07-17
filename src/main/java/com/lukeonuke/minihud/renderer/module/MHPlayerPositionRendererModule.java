@@ -2,7 +2,7 @@ package com.lukeonuke.minihud.renderer.module;
 
 import net.minecraft.client.MinecraftClient;
 
-public class MHDPlayerPositionRendererModule implements MicroHudRendererModule{
+public class MHPlayerPositionRendererModule implements MicroHudRendererModule{
     private final MinecraftClient MINECRAFT_CLIENT = MinecraftClient.getInstance();
     @Override
     public String getName() {

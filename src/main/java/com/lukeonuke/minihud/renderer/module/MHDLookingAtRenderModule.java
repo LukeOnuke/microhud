@@ -21,7 +21,7 @@ public class MHDLookingAtRenderModule implements MicroHudRendererModule{
 
         HitResult hitResult = client.player.raycast(20D, 0F, false);
 
-        if(!hitResult.getType().equals(HitResult.Type.BLOCK)) return null;
+        if(!hitResult.getType().equals(HitResult.Type.BLOCK)) return "<no block>";
 
         BlockHitResult blockHitResult = (BlockHitResult) hitResult;
         hitResult = null; //flag for gcc

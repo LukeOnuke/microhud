@@ -1,0 +1,8 @@
+{
+  "key.microhud.toggleOptionsScreen": "Toggle options screen",
+  "key.microhud.toggleRenderer": "Toggle rendering",
+  "category.microhud.controls": "Microhud",
+  "gui.microhud.configuration.title": "Microhud options",
+  "gui.microhud.configuration.available": "Available lines",
+  "gui.microhud.configuration.selected": "Selected lines (preview)"
+}

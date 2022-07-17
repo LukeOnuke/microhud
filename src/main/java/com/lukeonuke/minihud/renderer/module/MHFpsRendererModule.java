@@ -2,7 +2,7 @@ package com.lukeonuke.minihud.renderer.module;
 
 import java.time.Instant;
 
-public class MHDFpsRendererModule implements MicroHudRendererModule{
+public class MHFpsRendererModule implements MicroHudRendererModule{
     @Override
     public String getName() {
         return "FPS meter";
