@@ -7,7 +7,7 @@ import net.minecraft.util.hit.HitResult;
 
 import java.util.Objects;
 
-public class MHDLookingAtRenderModule implements MicroHudRendererModule{
+public class MHLookingAtRenderModule implements MicroHudRendererModule{
     private final MinecraftClient client = MinecraftClient.getInstance();
     @Override
     public String getName() {

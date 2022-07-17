@@ -4,6 +4,7 @@ import com.lukeonuke.minihud.MicroHud;
 import com.lukeonuke.minihud.data.MicroHudOptions;
 import com.lukeonuke.minihud.gui.list.MHLineList;
 import com.lukeonuke.minihud.gui.list.MHList;
+import com.lukeonuke.minihud.gui.list.ScrollingText;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
@@ -38,23 +39,28 @@ public class OptionsScreen extends Screen {
             exit(true);
         }));
 
-        this.addDrawableChild(new ButtonWidget(padding, this.height - 20 - padding, 100, 20, ScreenTexts.CANCEL, (event)->{
+        this.addDrawableChild(new ButtonWidget(padding, this.height - 20 - padding, 100, 20, ScreenTexts.CANCEL, (event) -> {
             MicroHud.LOGGER.info("Cancled options screen");
             exit(false);
         }));
 
-
+        this.addDrawable(
+                new ScrollingText(
+                        20 + textRenderer.fontHeight + padding * 2, textRenderer,
+                        Text.translatable("gui.microhud.configuration.tip").getString()
+                )
+        );
 
         //super(client, width, height, 32, height - 55 + 4, 36);
         /*
-        * 36 - gornja grana
-        *
-        * */
+         * 36 - gornja grana
+         *
+         * */
         //MHLineList lineList = this.addDrawableChild(new MHLineList(0, padding + textRenderer.fontHeight + padding, textRenderer));
         int w = 150;
         int h = this.height - padding * 3 - textRenderer.fontHeight;
 
-        availableList = new MHList(client, w, h, (textRenderer.fontHeight + padding) * 2 + padding, this.height - padding, textRenderer.fontHeight + padding);
+        availableList = new MHList(client, w, h, (textRenderer.fontHeight + padding) * 2 + padding, this.height - (20 + textRenderer.fontHeight + padding * 3), textRenderer.fontHeight + padding);
         this.addSelectableChild(availableList);
         availableList.setLeftPos(padding);
 
@@ -63,10 +69,6 @@ public class OptionsScreen extends Screen {
         //selectedList.setLeftPos(this.width / 2);
 
         selected = this.addDrawableChild(new MHLineList(this.width / 2, (textRenderer.fontHeight + padding) * 2 + padding, textRenderer, availableList));
-
-
-        MicroHud.LOGGER.info("{} {}", (this.width * 0.6D), (int)(this.width * 0.6D));
-
 
         refreshLists();
 
@@ -80,16 +82,16 @@ public class OptionsScreen extends Screen {
         renderer.setEnabled(false);
     }
 
-    public void refreshLists(){
+    public void refreshLists() {
         availableList.children().clear();
         MicroHudRenderer.getAvailableRendererModules().forEach(rendererModule -> {
             AtomicBoolean contains = new AtomicBoolean(false);
             renderer.getRendererModules().forEach(enabledModules -> {
-                if(enabledModules.getClass().equals(rendererModule.getClass())) contains.set(true);
+                if (enabledModules.getClass().equals(rendererModule.getClass())) contains.set(true);
             });
-            if(!contains.get()) availableList.addEntry(new MHList.Entry(true, false, rendererModule, textRenderer, availableList));
+            if (!contains.get())
+                availableList.addEntry(new MHList.Entry(true, false, rendererModule, textRenderer, availableList));
         });
-
 
 
         //selectedList.children().clear();
@@ -98,8 +100,8 @@ public class OptionsScreen extends Screen {
         //});
     }
 
-    private void exit(boolean save){
-        if(save){
+    private void exit(boolean save) {
+        if (save) {
             ArrayList<String> classes = new ArrayList<>();
             renderer.getRendererModules().forEach(rendererModule -> {
                 classes.add(rendererModule.getClass().getSimpleName());

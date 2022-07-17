@@ -61,8 +61,7 @@ public class MHLineList implements Drawable, Selectable, Element {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if(Objects.isNull(client.currentScreen)) return false;
 
-        //int rightEdge = client.currentScreen.width - padding;
-        //if(mouseX < rightEdge && mouseX > rightEdge - textRenderer.getWidth("U")){
+        if(mouseX < client.currentScreen.width / 1.75) return false;
         int top;
         for (int i = 0; i < microHudRenderer.getRendererModules().size(); i++) {
             top = padding + (padding + textRenderer.fontHeight) * i + y;

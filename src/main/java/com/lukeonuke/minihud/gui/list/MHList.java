@@ -57,12 +57,6 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
             this.rendererModule = microHudRenderer;
             this.textRenderer = textRenderer;
             this.widget = widget;
-
-//            ScreenMouseEvents.afterMouseClick(client.currentScreen).register((screen, mouseX, mouseY, button) -> {
-//                if (button == 0) isMouseClicked = true;
-//                mX = mouseX;
-//                mY = mouseY;
-//            });
         }
 
         public MicroHudRendererModule getRendererModule() {
@@ -82,7 +76,6 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             DrawableHelper.fill(matrices, x, y, x + entryWidth, x + entryHeight, MicroHudColors.BLUE);
-            //hovered = isHovered(x, y, entryWidth, entryHeight, mouseX, mouseY);
 
             int color = 0xFFFFFF;
             if (hovered) {
@@ -99,29 +92,6 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
             MicroHud.LOGGER.info("Click {}", this);
-            /*boolean clicked = false;
-
-            double top = this.widget.getRowTop(widget.children().indexOf(this));
-            double left = this.widget.getRowLeft();
-            if(mouseX > left & mouseX < left + widget.width){
-                if(mouseY > top && mouseY < top + widget.itemHeight){
-                    clicked = true;
-                    MicroHud.LOGGER.info("Clicked on {}", this);
-                }
-            }*/
-            /*int u = textRenderer.getWidth("U");
-            int cx = (int)mouseX - widget.getRowLeft() - padding * 2;
-            int index = widget.children().indexOf(this);
-            if (movableControls) {
-                if (cx > padding && cx < padding + u) {
-                    MicroHud.LOGGER.info("Moving up {}", this);
-                    switchLists(index, index - 1);
-                } else if (cx > (padding + u) * 2 && cx < (padding + u) * 2 + u) {
-                    MicroHud.LOGGER.info("Moving down {}", this);
-                    switchLists(index, index + 1);
-                    MicroHud.LOGGER.info("Moving down {}", widget.children());
-                }
-            }*/
             MicroHudRenderer.getInstance().getRendererModules().add(rendererModule);
             widget.removeEntry(this);
             return false;
@@ -151,7 +121,5 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
             widget.children().set(index, widget.children().get(desiredPos));
             widget.children().set(desiredPos, mem);
         }
-
-
     }
 }

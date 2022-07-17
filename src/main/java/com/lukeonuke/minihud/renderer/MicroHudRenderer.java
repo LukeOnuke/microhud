@@ -37,7 +37,9 @@ public class MicroHudRenderer {
         availableRendererModules.add(new MHDateTimeRendererModule());
         availableRendererModules.add(new MHPlayerPositionRendererModule());
         availableRendererModules.add(new MHFpsRendererModule());
-        availableRendererModules.add(new MHDLookingAtRenderModule());
+        availableRendererModules.add(new MHLookingAtRenderModule());
+        availableRendererModules.add(new MHPlayerCountModule());
+        availableRendererModules.add(new MHServerBrandModule());
 
         return availableRendererModules;
     }
