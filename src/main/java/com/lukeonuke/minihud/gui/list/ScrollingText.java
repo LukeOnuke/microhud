@@ -38,7 +38,7 @@ public class ScrollingText implements Drawable {
         width = client.currentScreen.width;
         if(width < textWidth){
             time += delta;
-            if(time > 10) {
+            if(time > 15) {
                 time = 0;
                 currentBeginning++;
                 if(currentBeginning >= text.length()) currentBeginning = 0;
