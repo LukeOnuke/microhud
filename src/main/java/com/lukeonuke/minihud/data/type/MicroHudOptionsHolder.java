@@ -2,7 +2,7 @@ package com.lukeonuke.minihud.data.type;
 
 import com.google.common.reflect.Reflection;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
-import com.lukeonuke.minihud.renderer.module.MicroHudRendererModule;
+import com.lukeonuke.minihud.renderer.module.*;
 
 import java.util.ArrayList;
 
@@ -18,9 +18,10 @@ public class MicroHudOptionsHolder {
         MicroHudOptionsHolder optionsHolder = new MicroHudOptionsHolder();
         optionsHolder.setSchema(1);
         ArrayList<String> renderers = new ArrayList<>();
-        MicroHudRenderer.getAvailableRendererModules().forEach(microHudRendererModule -> {
-            renderers.add(microHudRendererModule.getClass().getSimpleName());
-        });
+        renderers.add(MHDateTimeRendererModule.class.getSimpleName());
+        renderers.add(MHPlayerPositionRendererModule.class.getSimpleName());
+        renderers.add(MHFpsRendererModule.class.getSimpleName());
+        renderers.add(MHLookingAtRenderModule.class.getSimpleName());
         optionsHolder.setEnabledRenderers(renderers);
         return optionsHolder;
     }
