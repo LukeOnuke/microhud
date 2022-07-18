@@ -1,6 +1,7 @@
 package com.lukeonuke.minihud.gui;
 
 import com.lukeonuke.minihud.MicroHud;
+import com.lukeonuke.minihud.MicroHudColors;
 import com.lukeonuke.minihud.data.MicroHudOptions;
 import com.lukeonuke.minihud.gui.list.MHLineList;
 import com.lukeonuke.minihud.gui.list.MHList;
@@ -60,7 +61,7 @@ public class OptionsScreen extends Screen {
         int w = 150;
         int h = this.height - padding * 3 - textRenderer.fontHeight;
 
-        availableList = new MHList(client, w, h, (textRenderer.fontHeight + padding) * 2 + padding, this.height - (20 + textRenderer.fontHeight + padding * 3), textRenderer.fontHeight + padding);
+        availableList = new MHList(client, w, h, (textRenderer.fontHeight + padding) * 2 + padding * 2, this.height - (20 + textRenderer.fontHeight + padding * 3), textRenderer.fontHeight + padding);
         this.addSelectableChild(availableList);
         availableList.setLeftPos(padding);
 
@@ -68,7 +69,7 @@ public class OptionsScreen extends Screen {
         //this.addSelectableChild(selectedList);
         //selectedList.setLeftPos(this.width / 2);
 
-        selected = this.addDrawableChild(new MHLineList(this.width / 2, (textRenderer.fontHeight + padding) * 2 + padding, textRenderer, availableList));
+        selected = this.addDrawableChild(new MHLineList(this.width / 2, (textRenderer.fontHeight + padding) * 2 + padding * 2, textRenderer, availableList));
 
         refreshLists();
 
@@ -115,14 +116,15 @@ public class OptionsScreen extends Screen {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         //this.fillGradient(matrices, 0, 0, this.width, this.height, 0x0101010F, 0x0101010F);
-        DrawableHelper.fill(matrices, 0, 0, this.width, this.height, 0x0101010F);
+        DrawableHelper.fill(matrices, 0, 0, this.width, this.height, MicroHudColors.TRANSLUCENT);
+        DrawableHelper.fill(matrices, 0, 0, this.width, padding * 2 + textRenderer.fontHeight, MicroHudColors.TRANSLUCENT);
         availableList.render(matrices, mouseX, mouseY, delta);
         //selectedList.render(matrices, mouseX, mouseY, delta);
         Text title = Text.translatable("gui.microhud.configuration.title");
         textRenderer.draw(matrices, title, (this.width - textRenderer.getWidth(title.getString())) / 2F, padding, 0xFFFFFF);
 
-        textRenderer.draw(matrices, Text.translatable("gui.microhud.configuration.available"), padding, padding * 2 + textRenderer.fontHeight, 0xFFFFFF);
-        textRenderer.draw(matrices, Text.translatable("gui.microhud.configuration.selected"), this.width / 2F, padding * 2 + textRenderer.fontHeight, 0xFFFFFF);
+        textRenderer.draw(matrices, Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF);
+        textRenderer.draw(matrices, Text.translatable("gui.microhud.configuration.selected"), this.width / 2F, padding * 3 + textRenderer.fontHeight, 0xFFFFFF);
         super.render(matrices, mouseX, mouseY, delta);
     }
 

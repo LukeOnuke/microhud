@@ -75,8 +75,6 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            DrawableHelper.fill(matrices, x, y, x + entryWidth, x + entryHeight, MicroHudColors.BLUE);
-
             int color = 0xFFFFFF;
             if (hovered) {
                 color = MicroHudColors.HOVER;
