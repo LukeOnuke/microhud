@@ -12,3 +12,7 @@ In fact, you could fit ***~30 packages of the mod into a
 
 ## Setup
 Download from [github](https://github.com/LukeOnuke/microhud/releases/latest) or [curseforge](https://www.curseforge.com/minecraft/mc-mods/microhud/files) and drop into mods folder.
+
+> **Warning**
+> 
+> Only download the mod from theese two sources, never take any mods from untrusted sources.
