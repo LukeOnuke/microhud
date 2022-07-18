@@ -15,4 +15,4 @@ Download from [github](https://github.com/LukeOnuke/microhud/releases/latest) or
 
 > **Warning**
 > 
-> Only download the mod from theese two sources, never take any mods from untrusted sources.
+> Only download the mod from these two sources, never take any mods from untrusted sources.
