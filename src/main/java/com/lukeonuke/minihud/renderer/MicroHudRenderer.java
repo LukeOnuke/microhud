@@ -58,7 +58,7 @@ public class MicroHudRenderer {
         for(int i = 0; i < rendererModules.size(); i++){
             text = rendererModules.get(i).render(deltaT);
             if (Objects.isNull(text)) continue;
-            RENDERER.drawWithShadow(matrixStack, text, scaledWidth - RENDERER.getWidth(text), i * RENDERER.fontHeight + 5, 0xFFFFFF);
+            RENDERER.drawWithShadow(matrixStack, text, scaledWidth - RENDERER.getWidth(text), i * RENDERER.fontHeight + 5, 0xFFFFFFFF);
         }
 
         //flag for gcc
