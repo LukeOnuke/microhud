@@ -35,15 +35,16 @@ public class OptionsScreen extends Screen {
         super.init();
         renderer = MicroHudRenderer.getInstance();
 
-        ButtonWidget doneButton = this.addDrawableChild(new ButtonWidget(this.width - 100 - padding, this.height - 20 - padding, 100, 20, ScreenTexts.DONE, (event) -> {
+        ButtonWidget doneButton = this.addDrawableChild(new ButtonWidget.Builder(ScreenTexts.DONE, (event) -> {
             MicroHud.LOGGER.info("Done");
             exit(true);
-        }));
+        }).dimensions(this.width - 100 - padding, this.height - 20 - padding, 100, 20).build());
 
-        this.addDrawableChild(new ButtonWidget(padding, this.height - 20 - padding, 100, 20, ScreenTexts.CANCEL, (event) -> {
+        //padding, this.height - 20 - padding, 100, 20, ScreenTexts.CANCEL
+        this.addDrawableChild(new ButtonWidget.Builder(ScreenTexts.CANCEL, (event) -> {
             MicroHud.LOGGER.info("Cancled options screen");
             exit(false);
-        }));
+        }).dimensions(padding, this.height - 20 - padding, 100, 20).build());
 
         this.addDrawable(
                 new ScrollingText(
