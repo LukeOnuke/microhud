@@ -90,6 +90,16 @@ public class MHLineList implements Drawable, Selectable, Element {
     }
 
     @Override
+    public void setFocused(boolean focused) {
+
+    }
+
+    @Override
+    public boolean isFocused() {
+        return false;
+    }
+
+    @Override
     public SelectionType getType() {
         return SelectionType.NONE;
     }

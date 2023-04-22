@@ -5,11 +5,13 @@ import com.lukeonuke.minihud.renderer.module.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class MicroHudRenderer {
+    private final MinecraftClient client = MinecraftClient.getInstance();
 
     private MicroHudRenderer() {
         final ArrayList<MicroHudRendererModule> availableRendererModules = getAvailableRendererModules();
@@ -40,6 +42,7 @@ public class MicroHudRenderer {
         availableRendererModules.add(new MHLookingAtRenderModule());
         availableRendererModules.add(new MHPlayerCountModule());
         availableRendererModules.add(new MHServerBrandModule());
+        availableRendererModules.add(new MHCurrentBiomeModule());
 
         return availableRendererModules;
     }
@@ -54,11 +57,14 @@ public class MicroHudRenderer {
 
     public void render(MatrixStack matrixStack, float deltaT, int scaledWidth){
         if (!enabled) return;
+
+        int statusEffectOffset = 0;
+        if (Objects.nonNull(client.player) && client.player.getStatusEffects().size() > 0) statusEffectOffset = (int) (RENDERER.fontHeight * 2.8);
         String text;
         for(int i = 0; i < rendererModules.size(); i++){
             text = rendererModules.get(i).render(deltaT);
             if (Objects.isNull(text)) continue;
-            RENDERER.drawWithShadow(matrixStack, text, scaledWidth - RENDERER.getWidth(text), i * RENDERER.fontHeight + 5, 0xFFFFFFFF);
+            RENDERER.drawWithShadow(matrixStack, text, scaledWidth - RENDERER.getWidth(text) - 5, i * RENDERER.fontHeight + 5 + statusEffectOffset, 0xFFFFFFFF);
         }
 
         //flag for gcc

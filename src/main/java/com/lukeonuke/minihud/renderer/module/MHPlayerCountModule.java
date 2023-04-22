@@ -1,6 +1,7 @@
 package com.lukeonuke.minihud.renderer.module;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.integrated.IntegratedServer;
 
 import java.util.Objects;
 
@@ -13,7 +14,8 @@ public class MHPlayerCountModule implements MicroHudRendererModule{
 
     @Override
     public String render(float deltaTick) {
-        if(Objects.isNull(client.world)) return "<couldn't get players>";
-        return String.valueOf(client.world.getPlayers().size());
+        final IntegratedServer server =  client.getServer();
+        if(Objects.isNull(server)) return "N/A / N/A players";
+        return server.getCurrentPlayerCount() + "/" + server.getMaxPlayerCount();
     }
 }

@@ -1,6 +1,7 @@
 package com.lukeonuke.minihud.renderer.module;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.Formatting;
 
 import java.util.Objects;
 
@@ -14,6 +15,6 @@ public class MHServerBrandModule implements MicroHudRendererModule {
     @Override
     public String render(float deltaTick) {
         if (Objects.isNull(client.player)) return "<couldn't get server brand>";
-        return client.player.getServerBrand();
+        return "Server brand: " + Formatting.BOLD +  client.player.getServerBrand();
     }
 }

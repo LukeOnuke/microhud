@@ -1,4 +1,4 @@
-package com.lukeonuke.minihud.mixin.hud;
+package com.lukeonuke.minihud.mixin;
 
 import com.lukeonuke.minihud.MicroHud;
 import com.lukeonuke.minihud.gui.OptionsScreen;
@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public class GameScreenOverlay {
     @Shadow private int scaledWidth;
+
+
 
     @Inject(at = @At("HEAD"), method = "render")
     void onHudRender(MatrixStack matrixStack, float tickDelta, CallbackInfo ci){
