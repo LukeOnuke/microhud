@@ -13,7 +13,7 @@
     "sources": "https://github.com/LukeOnuke/microhud"
   },
 
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "icon": "assets/microhud/icon.png",
 
   "environment": "client",
