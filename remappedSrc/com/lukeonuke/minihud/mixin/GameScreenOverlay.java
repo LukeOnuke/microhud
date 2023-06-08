@@ -4,7 +4,6 @@ import com.lukeonuke.minihud.MicroHud;
 import com.lukeonuke.minihud.gui.OptionsScreen;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
@@ -22,8 +21,8 @@ public class GameScreenOverlay {
 
 
     @Inject(at = @At("HEAD"), method = "render")
-    void onHudRender(DrawContext context, float tickDelta, CallbackInfo ci){
-        if (!MinecraftClient.getInstance().options.debugEnabled) MicroHudRenderer.getInstance().render(context, tickDelta, scaledWidth);
+    void onHudRender(MatrixStack matrixStack, float tickDelta, CallbackInfo ci){
+        if (!MinecraftClient.getInstance().options.debugEnabled) MicroHudRenderer.getInstance().render(matrixStack, tickDelta, scaledWidth);
 
     }
 

@@ -7,11 +7,12 @@ import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import com.lukeonuke.minihud.renderer.module.MicroHudRendererModule;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MHLineList implements Drawable, Selectable, Element {
 
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         if(Objects.isNull(client.currentScreen)) return;
         ArrayList<MicroHudRendererModule> modules = microHudRenderer.getRendererModules();
         int yPos;
@@ -52,7 +53,8 @@ public class MHLineList implements Drawable, Selectable, Element {
                 color = MicroHudColors.HOVER;
 
             //right side
-            textRenderer.draw(modules.get(i).render(delta), xPos, yPos, color, true, context.getMatrices().peek().getPositionMatrix(), context.getVertexConsumers(), TextRenderer.TextLayerType.SEE_THROUGH, MicroHudColors.TRANSPARENT, MicroHudColors.LIGHT);
+            textRenderer.drawWithShadow(matrices, modules.get(i).render(delta), xPos, yPos, color);
+            renderButtons(matrices, yPos);
         }
     }
 
@@ -107,11 +109,11 @@ public class MHLineList implements Drawable, Selectable, Element {
 
     }
 
-    private void renderButtons(DrawContext context, int yPos) {
+    private void renderButtons(MatrixStack matrices, int yPos) {
         if (client.currentScreen == null) return;
 
-        MHGuiUtil.drawText(context, textRenderer, "U", client.currentScreen.width - padding - textRenderer.getWidth("U"), yPos, MicroHudColors.GREEN);
-        MHGuiUtil.drawText(context, textRenderer, "D", client.currentScreen.width - (padding + textRenderer.getWidth("U")), yPos, MicroHudColors.RED);
+        textRenderer.draw(matrices, "U", client.currentScreen.width - padding - textRenderer.getWidth("U"), yPos, MicroHudColors.GREEN);
+        textRenderer.draw(matrices, "D", client.currentScreen.width - (padding + textRenderer.getWidth("U")) * 2, yPos, MicroHudColors.RED);
     }
 
     private void switchRenderers(int currentPosition, int desiredPosition){

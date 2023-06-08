@@ -2,11 +2,9 @@ package com.lukeonuke.minihud.gui.list;
 
 import com.lukeonuke.minihud.MicroHud;
 import com.lukeonuke.minihud.MicroHudColors;
-import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.util.math.MatrixStack;
 
@@ -33,7 +31,7 @@ public class ScrollingText implements Drawable {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         if (client.currentScreen == null) return;
 
         currentText = text;
@@ -47,6 +45,6 @@ public class ScrollingText implements Drawable {
             }
             currentText = text.substring(currentBeginning);
         }else currentBeginning = 0;
-        MHGuiUtil.drawText(context, textRenderer, currentText, padding, client.currentScreen.height - bottom, MicroHudColors.WHITE);
+        textRenderer.draw(matrices, currentText, padding, client.currentScreen.height - bottom, MicroHudColors.WHITE);
     }
 }

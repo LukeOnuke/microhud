@@ -2,7 +2,8 @@ package com.lukeonuke.minihud.gui;
 
 import com.lukeonuke.minihud.MicroHud;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 public class MHButton {
@@ -19,14 +20,14 @@ public class MHButton {
         this.content = content;
     }
 
-    public void render(DrawContext context, TextRenderer textRenderer, int x, int y){
+    public void render(MatrixStack matrices, TextRenderer textRenderer, int x, int y){
         this.x = x;
         this.y = y;
         width = textRenderer.fontHeight + padding * 2;
         height = textRenderer.getWidth(content) + padding * 2;
 
-        context.fill(x, y, x + width, y + width, 0x000000FA);
-        MHGuiUtil.drawText(context, textRenderer, content, x + padding, y + padding, 0xFFFFFF, false);
+        DrawableHelper.fill(matrices, x, y, x + width, y + width, 0x000000FA);
+        textRenderer.draw(matrices, content, x + padding, y + padding, 0xFFFFFF);
     }
 
     public void click(double cx, double cy){

@@ -2,12 +2,12 @@ package com.lukeonuke.minihud.gui.list;
 
 import com.lukeonuke.minihud.MicroHud;
 import com.lukeonuke.minihud.MicroHudColors;
-import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import com.lukeonuke.minihud.renderer.module.MicroHudRendererModule;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -23,27 +23,27 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
     }
 
     @Override
-    public int addEntry(Entry entry) {
+    public int addEntry(com.lukeonuke.minihud.gui.list.MHList.Entry entry) {
         return super.addEntry(entry);
     }
 
     @Override
-    public boolean removeEntry(Entry entry) {
+    public boolean removeEntry(com.lukeonuke.minihud.gui.list.MHList.Entry entry) {
         return super.removeEntry(entry);
     }
 
-    public void removeEntryByRenderer(MicroHudRendererModule rendererModule) {
-        for (Entry entry : children()) {
+    public void removeEntryByRenderer(MicroHudRendererModule rendererModule){
+        for (com.lukeonuke.minihud.gui.list.MHList.Entry entry : children()) {
             if (entry.getRendererModule().equals(rendererModule)) removeEntry(entry);
         }
     }
 
-    public void addIfNotPresent(Entry entry) {
+    public void addIfNotPresent(com.lukeonuke.minihud.gui.list.MHList.Entry entry){
         if (children().contains(entry)) return;
         addEntry(entry);
     }
 
-    public static class Entry extends AlwaysSelectedEntryListWidget.Entry<Entry> implements AutoCloseable, Element {
+    public static class Entry extends AlwaysSelectedEntryListWidget.Entry<com.lukeonuke.minihud.gui.list.MHList.Entry> implements AutoCloseable, Element {
         private final boolean showName;
         private final boolean movableControls;
         private final MicroHudRendererModule rendererModule;
@@ -74,7 +74,7 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             int color = 0xFFFFFF;
             if (hovered) {
                 color = MicroHudColors.HOVER;
@@ -83,7 +83,7 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
 
             String text = rendererModule.getName();
             if (!showName) text = rendererModule.render(tickDelta);
-            MHGuiUtil.drawText(context, textRenderer, text, (int) (entryWidth * 0.25 + x), y, color);
+            textRenderer.draw(matrices, text, (int) (entryWidth * 0.25 + x), y, color);
         }
 
 

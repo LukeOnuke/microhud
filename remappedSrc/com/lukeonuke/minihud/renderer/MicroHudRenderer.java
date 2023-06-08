@@ -1,16 +1,11 @@
 package com.lukeonuke.minihud.renderer;
 
-import com.lukeonuke.minihud.MicroHudColors;
 import com.lukeonuke.minihud.data.MicroHudOptions;
-import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.renderer.module.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -60,7 +55,7 @@ public class MicroHudRenderer {
         rendererModules.add(microHudRendererModule);
     }
 
-    public void render(DrawContext context, float deltaT, int scaledWidth){
+    public void render(MatrixStack matrixStack, float deltaT, int scaledWidth){
         if (!enabled) return;
 
         int statusEffectOffset = 0;
@@ -69,8 +64,7 @@ public class MicroHudRenderer {
         for(int i = 0; i < rendererModules.size(); i++){
             text = rendererModules.get(i).render(deltaT);
             if (Objects.isNull(text)) continue;
-            MHGuiUtil.drawText(context, RENDERER, text, scaledWidth - RENDERER.getWidth(text) - 5, i * RENDERER.fontHeight + 5 + statusEffectOffset, MicroHudColors.WHITE);
-            //RENDERER.drawWithOutline(Text.of(text).asOrderedText(), scaledWidth - RENDERER.getWidth(text) - 5, i * RENDERER.fontHeight + 5 + statusEffectOffset, 0xFFFFFFFF, 0xFFFFFFFF, context.getMatrices().peek().getPositionMatrix(), context.getVertexConsumers(), 16);
+            RENDERER.drawWithShadow(matrixStack, text, scaledWidth - RENDERER.getWidth(text) - 5, i * RENDERER.fontHeight + 5 + statusEffectOffset, 0xFFFFFFFF);
         }
 
         //flag for gcc
