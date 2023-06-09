@@ -80,6 +80,7 @@ public class MicroHudRenderer {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+    public boolean getEnabled() {return enabled;}
 
     public void toggleEnabled(){
         enabled = !enabled;

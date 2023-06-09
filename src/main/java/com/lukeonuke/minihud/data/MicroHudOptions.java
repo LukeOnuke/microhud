@@ -3,6 +3,7 @@ package com.lukeonuke.minihud.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lukeonuke.minihud.MicroHud;
+import com.lukeonuke.minihud.MicroHudColors;
 import com.lukeonuke.minihud.data.type.MicroHudOptionsHolder;
 import net.minecraft.client.MinecraftClient;
 
@@ -41,12 +42,16 @@ public class MicroHudOptions {
 
     public void load(){
         if(!propertiesFile.exists()) return;
-        try {
-            FileReader reader = new FileReader(propertiesFile, StandardCharsets.UTF_8);
+        try (FileReader reader = new FileReader(propertiesFile, StandardCharsets.UTF_8)){
             optionsHolder = gson.fromJson(reader, MicroHudOptionsHolder.class);
-            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        final MicroHudOptionsHolder defaults = MicroHudOptionsHolder.getDefault();
+        if(optionsHolder.getSchema() < defaults.getSchema()){
+            //is old options, default to new options
+            optionsHolder = defaults;
         }
     }
 
@@ -77,5 +82,13 @@ public class MicroHudOptions {
 
     public int getSchema() {
         return optionsHolder.getSchema();
+    }
+
+    public boolean getEnabledPlayerDiscordTag(){
+        return optionsHolder.enabledPlayerDiscordTag;
+    }
+
+    public void setEnabledPlayerDiscordTag(boolean enabledPlayerDiscordTag){
+        optionsHolder.enabledPlayerDiscordTag = enabledPlayerDiscordTag;
     }
 }

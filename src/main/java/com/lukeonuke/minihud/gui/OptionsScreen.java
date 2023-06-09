@@ -14,7 +14,10 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.ScreenTexts;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -26,6 +29,8 @@ public class OptionsScreen extends Screen {
     private MHLineList selected;
     private MicroHudRenderer renderer;
     final private MicroHudOptions microHudOptions = MicroHudOptions.getInstance();
+
+    private boolean wasLineRendererEnabled;
 
     public OptionsScreen() {
         super(Text.of("Options"));
@@ -47,6 +52,12 @@ public class OptionsScreen extends Screen {
             MicroHud.LOGGER.info("Cancled options screen");
             exit(false);
         }).dimensions(padding, this.height - 20 - padding, 100, 20).build());
+
+        ButtonWidget playerDiscordToggleButtonWidget = this.addDrawableChild(new ButtonWidget.Builder(Text.empty(), (event) -> {
+            microHudOptions.setEnabledPlayerDiscordTag(!microHudOptions.getEnabledPlayerDiscordTag());
+            updatePlayerDiscordTagToggleButton(event);
+        }).dimensions(this.width / 2 - 75, this.height - 20 - padding, 150, 20).build());
+        updatePlayerDiscordTagToggleButton(playerDiscordToggleButtonWidget);
 
         this.addDrawable(
                 new ScrollingText(
@@ -83,6 +94,7 @@ public class OptionsScreen extends Screen {
             availableList.removeEntry(entry);
             selectedList.addEntry(entry);
         }));*/
+        wasLineRendererEnabled = renderer.getEnabled();
         renderer.setEnabled(false);
     }
 
@@ -132,12 +144,22 @@ public class OptionsScreen extends Screen {
         textRenderer.draw(Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
         textRenderer.draw(Text.translatable("gui.microhud.configuration.selected"), this.width / 2F, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
 
+        if (!wasLineRendererEnabled) MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new Object[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3 + textRenderer.fontHeight, MicroHudColors.RED);
+
         super.render(context, mouseX, mouseY, delta);
     }
 
     @Override
     public void close() {
-        renderer.setEnabled(true);
+        renderer.setEnabled(wasLineRendererEnabled);
         super.close();
+    }
+
+    private void updatePlayerDiscordTagToggleButton(ButtonWidget buttonWidget){
+        if(microHudOptions.getEnabledPlayerDiscordTag()){
+            buttonWidget.setMessage(Text.of("Player discord tag: " + Formatting.BOLD + Formatting.GREEN + "ON"));
+        }else{
+            buttonWidget.setMessage(Text.of("Player discord tag: " + Formatting.BOLD + Formatting.RED + "OFF"));
+        }
     }
 }
