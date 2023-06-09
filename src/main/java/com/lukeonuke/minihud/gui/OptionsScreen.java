@@ -144,7 +144,7 @@ public class OptionsScreen extends Screen {
         textRenderer.draw(Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
         textRenderer.draw(Text.translatable("gui.microhud.configuration.selected"), this.width / 2F, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
 
-        if (!wasLineRendererEnabled) MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new Object[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3 + textRenderer.fontHeight, MicroHudColors.RED);
+        if (!wasLineRendererEnabled) MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new Object[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3, MicroHudColors.RED);
 
         super.render(context, mouseX, mouseY, delta);
     }
