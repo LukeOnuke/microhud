@@ -139,10 +139,15 @@ public class OptionsScreen extends Screen {
         //selectedList.render(matrices, mouseX, mouseY, delta);
         Text title = Text.translatable("gui.microhud.configuration.title");
 
-        textRenderer.draw(title, (this.width - textRenderer.getWidth(title.getString())) / 2F, padding, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
+        //textRenderer.draw(title, (this.width - textRenderer.getWidth(title.getString())) / 2F, padding, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
 
-        textRenderer.draw(Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
-        textRenderer.draw(Text.translatable("gui.microhud.configuration.selected"), this.width / 2F, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
+        //textRenderer.draw(Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
+        //textRenderer.draw(Text.translatable("gui.microhud.configuration.selected"), this.width / 2F, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
+
+        MHGuiUtil.drawText(context, textRenderer, title, ((this.width - textRenderer.getWidth(title.getString())) / 2), padding, 0xFFFFFF, false);
+
+        MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false);
+        MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.selected"), this.width / 2, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false);
 
         if (!wasLineRendererEnabled) MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new Object[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3, MicroHudColors.RED);
 

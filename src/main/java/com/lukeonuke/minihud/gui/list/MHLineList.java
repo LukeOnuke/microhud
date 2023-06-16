@@ -47,12 +47,13 @@ public class MHLineList implements Drawable, Selectable, Element {
             color = MicroHudColors.WHITE;
             yPos = padding * (i + 1) + textRenderer.fontHeight * i;
             yPos += y;
-
+            renderButtons(context, yPos);
             if(MHGuiUtil.isHovered(xPos, yPos, client.currentScreen.width / 2, textRenderer.fontHeight, mouseX, mouseY))
                 color = MicroHudColors.HOVER;
 
             //right side
-            textRenderer.draw(modules.get(i).render(delta), xPos, yPos, color, true, context.getMatrices().peek().getPositionMatrix(), context.getVertexConsumers(), TextRenderer.TextLayerType.SEE_THROUGH, MicroHudColors.TRANSPARENT, MicroHudColors.LIGHT);
+            MHGuiUtil.drawText(context, textRenderer, modules.get(i).render(delta), xPos, yPos, color, true);
+            //textRenderer.draw(modules.get(i).render(delta), xPos, yPos, color, true, context.getMatrices().peek().getPositionMatrix(), context.getVertexConsumers(), TextRenderer.TextLayerType.SEE_THROUGH, MicroHudColors.TRANSPARENT, MicroHudColors.LIGHT);
         }
     }
 
@@ -69,7 +70,6 @@ public class MHLineList implements Drawable, Selectable, Element {
                 if(mouseX < rightEdge && mouseX > rightEdge - textRenderer.getWidth("U")){
                     // up
                     switchRenderers(i, i - 1);
-
                 }else {
                     rightEdge -= padding + textRenderer.getWidth("U");
                     if(mouseX < rightEdge && mouseX > rightEdge - textRenderer.getWidth("D")) {
@@ -111,7 +111,7 @@ public class MHLineList implements Drawable, Selectable, Element {
         if (client.currentScreen == null) return;
 
         MHGuiUtil.drawText(context, textRenderer, "U", client.currentScreen.width - padding - textRenderer.getWidth("U"), yPos, MicroHudColors.GREEN);
-        MHGuiUtil.drawText(context, textRenderer, "D", client.currentScreen.width - (padding + textRenderer.getWidth("U")), yPos, MicroHudColors.RED);
+        MHGuiUtil.drawText(context, textRenderer, "D", client.currentScreen.width - (padding + textRenderer.getWidth("U")) * 2, yPos, MicroHudColors.RED);
     }
 
     private void switchRenderers(int currentPosition, int desiredPosition){
