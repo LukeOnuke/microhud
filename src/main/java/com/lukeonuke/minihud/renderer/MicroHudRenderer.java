@@ -7,10 +7,6 @@ import com.lukeonuke.minihud.renderer.module.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,12 +44,32 @@ public class MicroHudRenderer {
         availableRendererModules.add(new MHPlayerCountModule());
         availableRendererModules.add(new MHServerBrandModule());
         availableRendererModules.add(new MHCurrentBiomeModule());
+        availableRendererModules.add(new MHWeatherTemperatureAndConditionModule());
+        availableRendererModules.add(new MHWeatherWindAndHumidityModule());
 
         return availableRendererModules;
     }
 
     final private TextRenderer RENDERER = MinecraftClient.getInstance().inGameHud.getTextRenderer();
     private final ArrayList<MicroHudRendererModule> rendererModules = new ArrayList<>();
+    public boolean isModuleEnabled(Class<? extends MicroHudRendererModule> c){
+        for (MicroHudRendererModule rendererModule:
+             rendererModules) {
+            if (rendererModule.getClass().equals(c)) return true;
+        }
+        return false;
+    }
+
+    public void enableRendererModule(MicroHudRendererModule module){
+        MicroHudRenderer.getInstance().getRendererModules().add(module);
+        module.onEnable(true);
+    }
+
+    public void disableRendererModule(MicroHudRendererModule module){
+        MicroHudRenderer.getInstance().getRendererModules().remove(module);
+        module.onEnable(false);
+    }
+
     private boolean enabled = true;
 
     public void register(MicroHudRendererModule microHudRendererModule){

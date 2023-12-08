@@ -14,4 +14,9 @@ public class MHPlayerPositionRendererModule implements MicroHudRendererModule{
         if(MINECRAFT_CLIENT.player == null) return null;
         return MINECRAFT_CLIENT.player.getBlockPos().toShortString();
     }
+
+    @Override
+    public void onEnable(boolean enabled) {
+
+    }
 }

@@ -17,4 +17,9 @@ public class MHServerBrandModule implements MicroHudRendererModule {
         if (Objects.isNull(client.player)) return "<couldn't get server brand>";
         return "Server brand: " + Formatting.BOLD +  client.player.getServerBrand();
     }
+
+    @Override
+    public void onEnable(boolean enabled) {
+
+    }
 }

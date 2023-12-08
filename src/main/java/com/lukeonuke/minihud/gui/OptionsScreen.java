@@ -18,7 +18,12 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -58,6 +63,15 @@ public class OptionsScreen extends Screen {
             updatePlayerDiscordTagToggleButton(event);
         }).dimensions(this.width / 2 - 75, this.height - 20 - padding, 150, 20).build());
         updatePlayerDiscordTagToggleButton(playerDiscordToggleButtonWidget);
+
+        ButtonWidget privacyPolicyButton = this.addDrawableChild(new ButtonWidget.Builder(Text.translatable("gui.microhud.configuration.privacyPolicy"), (event) -> {
+            try {
+                Util.getOperatingSystem().open(new URI("https://weather.lukeonuke.com/privacy/privacypolicy/"));
+            } catch (URISyntaxException e) {
+                MicroHud.LOGGER.error("Couldn't navigate to privacy policy: " + e.getMessage());
+            }
+            exit(false);
+        }).dimensions(this.width - padding*2 - textRenderer.getWidth(Text.translatable("gui.microhud.configuration.privacyPolicy")), 2, textRenderer.getWidth(Text.translatable("gui.microhud.configuration.privacyPolicy")) + padding, 20).build());
 
         this.addDrawable(
                 new ScrollingText(

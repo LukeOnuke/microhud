@@ -28,4 +28,9 @@ public class MHLookingAtRenderModule implements MicroHudRendererModule{
 
         return "(" + blockHitResult.getBlockPos().toShortString() + ") " + Formatting.BOLD + client.world.getBlockState(blockHitResult.getBlockPos()).getBlock().getName().getString();
     }
+
+    @Override
+    public void onEnable(boolean enabled) {
+
+    }
 }

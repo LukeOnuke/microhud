@@ -21,4 +21,9 @@ public class MHFpsRendererModule implements MicroHudRendererModule{
         }
         return lastFrameRate + " fps";
     }
+
+    @Override
+    public void onEnable(boolean enabled) {
+
+    }
 }

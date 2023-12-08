@@ -3,6 +3,7 @@ package com.lukeonuke.minihud;
 import com.lukeonuke.minihud.gui.OptionsScreen;
 import com.lukeonuke.minihud.data.MicroHudOptions;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
+import com.lukeonuke.minihud.service.WeatherService;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -11,6 +12,9 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MicroHud implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("microhud");

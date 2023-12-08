@@ -77,7 +77,8 @@ public class MHLineList implements Drawable, Selectable, Element {
                         switchRenderers(i, i + 1);
                     }else{
                         other.addEntry(new MHList.Entry(true, false, microHudRenderer.getRendererModules().get(i), textRenderer, other));
-                        microHudRenderer.getRendererModules().remove(microHudRenderer.getRendererModules().get(i));
+                        //microHudRenderer.getRendererModules().remove();
+                        MicroHudRenderer.getInstance().disableRendererModule(microHudRenderer.getRendererModules().get(i));
                     }
                 }
             }

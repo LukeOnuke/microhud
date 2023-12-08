@@ -1,27 +1,26 @@
-package com.lukeonuke.minihud.data.type;
+package com.lukeonuke.minihud.service;
 
-import com.google.common.reflect.Reflection;
-import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import com.lukeonuke.minihud.renderer.module.*;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 
-public class MicroHudOptionsHolder {
+public class OptionsService {
     private ArrayList<String> enabledRenderers;
+    @Getter
     private int schema;
 
     public boolean enabledPlayerDiscordTag;
 
-    public MicroHudOptionsHolder() {
+    public OptionsService() {
 
     }
 
-    public static MicroHudOptionsHolder getDefault(){
-        MicroHudOptionsHolder optionsHolder = new MicroHudOptionsHolder();
+    public static OptionsService getDefault(){
+        OptionsService optionsHolder = new OptionsService();
         optionsHolder.setSchema(2);
         ArrayList<String> renderers = new ArrayList<>();
+        renderers.add(MHWeatherTemperatureAndConditionModule.class.getSimpleName());
         renderers.add(MHDateTimeRendererModule.class.getSimpleName());
         renderers.add(MHPlayerPositionRendererModule.class.getSimpleName());
         renderers.add(MHFpsRendererModule.class.getSimpleName());
@@ -37,10 +36,6 @@ public class MicroHudOptionsHolder {
 
     public void setEnabledRenderers(ArrayList<String> enabledRenderers) {
         this.enabledRenderers = enabledRenderers;
-    }
-
-    public int getSchema() {
-        return schema;
     }
 
     public void setSchema(int schema) {

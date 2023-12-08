@@ -19,4 +19,9 @@ public class MHDateTimeRendererModule implements MicroHudRendererModule{
         date = LocalDateTime.now();
         return dateTimeFormatter.format(date);
     }
+
+    @Override
+    public void onEnable(boolean enabled) {
+
+    }
 }

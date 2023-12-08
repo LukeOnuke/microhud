@@ -21,4 +21,9 @@ public class MHPlayerCountModule implements MicroHudRendererModule{
         final Collection<PlayerListEntry> playerList =  client.player.networkHandler.getListedPlayerListEntries();
         return playerList.size() + " players online";
     }
+
+    @Override
+    public void onEnable(boolean enabled) {
+
+    }
 }

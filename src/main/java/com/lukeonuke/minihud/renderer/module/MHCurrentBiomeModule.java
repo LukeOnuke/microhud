@@ -27,6 +27,11 @@ public class MHCurrentBiomeModule implements MicroHudRendererModule{
         return getBiomeString(client.world.getBiome(client.player.getBlockPos())).split(":")[1];
     }
 
+    @Override
+    public void onEnable(boolean enabled) {
+
+    }
+
     private static String getBiomeString(RegistryEntry<Biome> biome) {
         return (String)biome.getKeyOrValue().map((biomeKey) -> {
             return biomeKey.getValue().toString();

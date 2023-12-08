@@ -3,8 +3,7 @@ package com.lukeonuke.minihud.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lukeonuke.minihud.MicroHud;
-import com.lukeonuke.minihud.MicroHudColors;
-import com.lukeonuke.minihud.data.type.MicroHudOptionsHolder;
+import com.lukeonuke.minihud.service.OptionsService;
 import net.minecraft.client.MinecraftClient;
 
 import java.io.File;
@@ -31,7 +30,7 @@ public class MicroHudOptions {
 
     private final MinecraftClient client = MinecraftClient.getInstance();
     private final File propertiesFile = client.runDirectory.toPath().resolve("microhud.json").normalize().toFile();
-    private MicroHudOptionsHolder optionsHolder;
+    private OptionsService optionsHolder;
 
     public void refresh() {
         MicroHud.LOGGER.info("Run dir {}", MinecraftClient.getInstance().runDirectory.getPath());
@@ -43,12 +42,12 @@ public class MicroHudOptions {
     public void load(){
         if(!propertiesFile.exists()) return;
         try (FileReader reader = new FileReader(propertiesFile, StandardCharsets.UTF_8)){
-            optionsHolder = gson.fromJson(reader, MicroHudOptionsHolder.class);
+            optionsHolder = gson.fromJson(reader, OptionsService.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        final MicroHudOptionsHolder defaults = MicroHudOptionsHolder.getDefault();
+        final OptionsService defaults = OptionsService.getDefault();
         if(optionsHolder.getSchema() < defaults.getSchema()){
             //is old options, default to new options
             optionsHolder = defaults;
@@ -59,7 +58,7 @@ public class MicroHudOptions {
         try {
             if (!propertiesFile.exists()) {
                 propertiesFile.createNewFile();
-                optionsHolder = MicroHudOptionsHolder.getDefault();
+                optionsHolder = OptionsService.getDefault();
             }
 
             FileWriter writer = new FileWriter(propertiesFile);

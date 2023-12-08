@@ -5,6 +5,7 @@ import com.lukeonuke.minihud.MicroHudColors;
 import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import com.lukeonuke.minihud.renderer.module.MicroHudRendererModule;
+import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -46,6 +47,7 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
     public static class Entry extends AlwaysSelectedEntryListWidget.Entry<Entry> implements AutoCloseable, Element {
         private final boolean showName;
         private final boolean movableControls;
+        @Getter
         private final MicroHudRendererModule rendererModule;
         private final TextRenderer textRenderer;
         private final MHList widget;
@@ -57,10 +59,6 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
             this.rendererModule = microHudRenderer;
             this.textRenderer = textRenderer;
             this.widget = widget;
-        }
-
-        public MicroHudRendererModule getRendererModule() {
-            return rendererModule;
         }
 
         @Override
@@ -90,7 +88,7 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
             MicroHud.LOGGER.info("Click {}", this);
-            MicroHudRenderer.getInstance().getRendererModules().add(rendererModule);
+            MicroHudRenderer.getInstance().enableRendererModule(rendererModule);
             widget.removeEntry(this);
             return false;
         }
