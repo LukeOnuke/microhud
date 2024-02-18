@@ -20,12 +20,10 @@ import java.util.Objects;
 
 @Mixin(net.minecraft.client.render.entity.EntityRenderer.class)
 public abstract class EntityRenderer<T extends Entity> {
-
-    private final NameLookupService nameLookupService = NameLookupService.getInstance();
-
     @Shadow
     public abstract TextRenderer getTextRenderer();
 
+    private final NameLookupService nameLookupService = NameLookupService.getInstance();
     private final MicroHudOptions options = MicroHudOptions.getInstance();
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V"), method = "renderLabelIfPresent")

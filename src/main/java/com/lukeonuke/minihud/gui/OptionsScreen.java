@@ -7,10 +7,12 @@ import com.lukeonuke.minihud.gui.list.MHLineList;
 import com.lukeonuke.minihud.gui.list.MHList;
 import com.lukeonuke.minihud.gui.list.ScrollingText;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.ScreenTexts;
@@ -18,6 +20,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.awt.*;
@@ -36,6 +39,7 @@ public class OptionsScreen extends Screen {
     final private MicroHudOptions microHudOptions = MicroHudOptions.getInstance();
 
     private boolean wasLineRendererEnabled;
+    public static final Identifier MH_OPTIONS_BACKGROUND_TEXTURE = new Identifier("microhud:textures/gui/microhud_gui_background.png"); //textures/block/glass.png
 
     public OptionsScreen() {
         super(Text.of("Options"));
@@ -91,7 +95,7 @@ public class OptionsScreen extends Screen {
 
         availableList = new MHList(client, w, h, (textRenderer.fontHeight + padding) * 2 + padding * 2, this.height - (20 + textRenderer.fontHeight + padding * 3), textRenderer.fontHeight + padding);
         this.addSelectableChild(availableList);
-        availableList.setLeftPos(padding);
+        availableList.setX(padding); //setleftpos
 
         //selectedList = new MHList(client, 200, h, textRenderer.fontHeight + padding * 2, this.height - padding, textRenderer.fontHeight + padding);
         //this.addSelectableChild(selectedList);
@@ -143,21 +147,30 @@ public class OptionsScreen extends Screen {
     }
 
     @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+//        context.fill(0, 0, this.width, this.height, MicroHudColors.TRANSLUCENT);
+//        context.fill(0, 0, this.width, padding * 2 + textRenderer.fontHeight, MicroHudColors.TRANSLUCENT);
+        RenderSystem.enableBlend();
+        context.setShaderColor(1F, 1F, 1F, 1F);
+        context.drawTexture(MH_OPTIONS_BACKGROUND_TEXTURE, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
+        context.drawTexture(MH_OPTIONS_BACKGROUND_TEXTURE, 0, 0, 0, 0.0F, 0.0F, this.width, padding * 2 + textRenderer.fontHeight, 32, 32);
+        int bottomDarkerAreaHeight = 20 + textRenderer.fontHeight + padding * 3;
+        context.drawTexture(MH_OPTIONS_BACKGROUND_TEXTURE, 0, this.height-bottomDarkerAreaHeight, 0, 0.0F, 0.0F, this.width, bottomDarkerAreaHeight, 32, 32);
+        context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.disableBlend();
+    }
+
+
+    @Override
+    public boolean shouldPause() {
+        return false;
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        //this.fillGradient(matrices, 0, 0, this.width, this.height, 0x0101010F, 0x0101010F);
-        final MatrixStack matrices = context.getMatrices();
-        final VertexConsumerProvider vertexConsumerProvider = context.getVertexConsumers();
-        context.fill(0, 0, this.width, this.height, MicroHudColors.TRANSLUCENT);
-        context.fill(0, 0, this.width, padding * 2 + textRenderer.fontHeight, MicroHudColors.TRANSLUCENT);
         availableList.render(context, mouseX, mouseY, delta);
-        //selectedList.render(matrices, mouseX, mouseY, delta);
+
         Text title = Text.translatable("gui.microhud.configuration.title");
-
-        //textRenderer.draw(title, (this.width - textRenderer.getWidth(title.getString())) / 2F, padding, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
-
-        //textRenderer.draw(Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
-        //textRenderer.draw(Text.translatable("gui.microhud.configuration.selected"), this.width / 2F, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 16);
-
         MHGuiUtil.drawText(context, textRenderer, title, ((this.width - textRenderer.getWidth(title.getString())) / 2), padding, 0xFFFFFF, false);
 
         MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false);

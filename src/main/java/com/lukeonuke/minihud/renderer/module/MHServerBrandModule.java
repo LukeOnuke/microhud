@@ -14,8 +14,8 @@ public class MHServerBrandModule implements MicroHudRendererModule {
 
     @Override
     public String render(float deltaTick) {
-        if (Objects.isNull(client.player)) return "<couldn't get server brand>";
-        return "Server brand: " + Formatting.BOLD +  client.player.getServerBrand();
+        if (Objects.isNull(client.getNetworkHandler())) return "<couldn't get server brand>";
+        return "Server brand: " + Formatting.BOLD +  client.getNetworkHandler().getBrand();
     }
 
     @Override

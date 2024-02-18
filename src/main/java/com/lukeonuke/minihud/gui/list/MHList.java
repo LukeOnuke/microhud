@@ -16,11 +16,11 @@ import net.minecraft.text.Text;
 
 public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
     public MHList(MinecraftClient client, int width, int height, int top, int bottom, int itemHeight) {
-        super(client, width, height, top, bottom, itemHeight);
+        super(client, width, height, top, itemHeight);
         this.setRenderBackground(false);
         this.setRenderHeader(false, 0);
-        this.setRenderHorizontalShadows(false);
-        this.setRenderSelection(true);
+//        this.setRenderHorizontalShadows(false);
+//        this.setRenderSelection(true);
     }
 
     @Override

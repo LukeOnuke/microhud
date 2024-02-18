@@ -6,7 +6,6 @@ import com.lukeonuke.minihud.MicroHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
-import javax.annotation.Nullable;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -35,7 +34,6 @@ public class NameLookupService {
         return instance;
     }
 
-    @Nullable
     public NameLookupData getPlayerData(String uuid) {
         if (!cache.containsKey(uuid) && !waiting.contains(uuid)) {
             waiting.add(uuid);

@@ -29,7 +29,7 @@ public class WeatherService {
                            public void run() {
                                refreshWeather();
                            }
-                       }, 0L, 600000L
+                       }, 0L, 1200000L
         );
     }
 
@@ -42,7 +42,6 @@ public class WeatherService {
         MicroHudRenderer microHudRenderer = MicroHudRenderer.getInstance();
         if(microHudRenderer.isModuleEnabled(MHWeatherTemperatureAndConditionModule.class) || microHudRenderer.isModuleEnabled(MHWeatherWindAndHumidityModule.class) ) new Thread(() -> {
             try {
-                MicroHud.LOGGER.warn("Loading weather...");
                 GeolocationResponse geolocationResponse = gson.fromJson(httpService.get("https://ipapi.co/json/"), GeolocationResponse.class);
                 weather =
                         gson.fromJson(

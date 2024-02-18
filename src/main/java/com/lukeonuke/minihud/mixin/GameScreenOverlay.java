@@ -22,9 +22,11 @@ public class GameScreenOverlay{
     @Shadow private int scaledWidth;
     @Shadow private MinecraftClient client;
 
+    @Shadow @Final private DebugHud debugHud;
+
     @Inject(at = @At("TAIL"), method = "render")
     void renderMicroHud(DrawContext context, float tickDelta, CallbackInfo ci){
-        if (!(MinecraftClient.getInstance().options.debugEnabled || this.client.options.hudHidden))
+        if (!(debugHud.shouldShowDebugHud() || this.client.options.hudHidden))
             MicroHudRenderer.getInstance().render(context, tickDelta, scaledWidth);
     }
 
