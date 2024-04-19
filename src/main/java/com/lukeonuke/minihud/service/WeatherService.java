@@ -52,7 +52,7 @@ public class WeatherService {
                 weather.getCurrent().setWindDirectionTranslated(angleToDirection(weather.getCurrent().getWind_deg()));
                 isReady = true;
             } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
+                MicroHud.LOGGER.warn("Failed to fetch weather: " + e.getMessage()  + ". You can probably disregard this message.");
             }
         }).start();
     }

@@ -46,6 +46,7 @@ public class MicroHudRenderer {
         availableRendererModules.add(new MHCurrentBiomeModule());
         availableRendererModules.add(new MHWeatherTemperatureAndConditionModule());
         availableRendererModules.add(new MHWeatherWindAndHumidityModule());
+        availableRendererModules.add(new MHFacingModule());
 
         return availableRendererModules;
     }
