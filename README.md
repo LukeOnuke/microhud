@@ -11,7 +11,7 @@ In fact, you could fit ***~30 packages of the mod into a
 - To toggle the renderer press `F6`
 
 ## Setup
-Download from [github](https://github.com/LukeOnuke/microhud/releases/latest), [modrinth](https://modrinth.com/mod/microhud/versions) or [curseforge](https://www.curseforge.com/minecraft/mc-mods/microhud/files) and drop into mods folder.
+Download from [modrinth](https://modrinth.com/mod/microhud/versions) or [github](https://github.com/LukeOnuke/microhud/releases/latest).
 
 > **Warning**
 > 
