@@ -18,11 +18,11 @@ public class MHGuiUtil {
     }
 
     public static void drawText(DrawContext context, TextRenderer textRenderer, Text text, int xPos, int yPos, int color, boolean shadow){
-        textRenderer.draw(text, xPos, yPos, color, shadow, context.getMatrices().peek().getPositionMatrix(), context.getVertexConsumers(), TextRenderer.TextLayerType.SEE_THROUGH, MicroHudColors.TRANSPARENT, MicroHudColors.LIGHT);
+        context.drawText(textRenderer, text, xPos, yPos, color, shadow);
     }
 
     public static void drawText(DrawContext context, TextRenderer textRenderer, String text, int xPos, int yPos, int color, boolean shadow){
-        drawText(context, textRenderer, Text.of(text), xPos, yPos, color, true);
+        drawText(context, textRenderer, Text.of(text), xPos, yPos, color, shadow);
     }
 
     public static void drawText(DrawContext context, TextRenderer textRenderer, String text, int xPos, int yPos, int color){

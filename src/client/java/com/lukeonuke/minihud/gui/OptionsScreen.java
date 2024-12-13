@@ -10,7 +10,10 @@ import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -39,7 +42,7 @@ public class OptionsScreen extends Screen {
     final private MicroHudOptions microHudOptions = MicroHudOptions.getInstance();
 
     private boolean wasLineRendererEnabled;
-    public static final Identifier MH_OPTIONS_BACKGROUND_TEXTURE = new Identifier("microhud:textures/gui/microhud_gui_background.png"); //textures/block/glass.png
+    public static final Identifier MH_OPTIONS_BACKGROUND_TEXTURE = Identifier.of("microhud:textures/gui/microhud_gui_background.png"); //textures/block/glass.png
 
     public OptionsScreen() {
         super(Text.of("Options"));
@@ -151,12 +154,13 @@ public class OptionsScreen extends Screen {
 //        context.fill(0, 0, this.width, this.height, MicroHudColors.TRANSLUCENT);
 //        context.fill(0, 0, this.width, padding * 2 + textRenderer.fontHeight, MicroHudColors.TRANSLUCENT);
         RenderSystem.enableBlend();
-        context.setShaderColor(1F, 1F, 1F, 1F);
-        context.drawTexture(MH_OPTIONS_BACKGROUND_TEXTURE, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
-        context.drawTexture(MH_OPTIONS_BACKGROUND_TEXTURE, 0, 0, 0, 0.0F, 0.0F, this.width, padding * 2 + textRenderer.fontHeight, 32, 32);
+        RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+
+        context.drawTexture(RenderLayer::getGuiTextured, MH_OPTIONS_BACKGROUND_TEXTURE, 0, 0, 0F, 0.0F, this.width, this.height, 32, 32);
+        context.drawTexture(RenderLayer::getGuiTextured, MH_OPTIONS_BACKGROUND_TEXTURE, 0, 0, 0F, 0.0F, this.width, padding * 2 + textRenderer.fontHeight, 32, 32);
         int bottomDarkerAreaHeight = 20 + textRenderer.fontHeight + padding * 3;
-        context.drawTexture(MH_OPTIONS_BACKGROUND_TEXTURE, 0, this.height-bottomDarkerAreaHeight, 0, 0.0F, 0.0F, this.width, bottomDarkerAreaHeight, 32, 32);
-        context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        context.drawTexture(RenderLayer::getGuiTextured, MH_OPTIONS_BACKGROUND_TEXTURE, 0, this.height-bottomDarkerAreaHeight, 0F, 0F,  this.width, bottomDarkerAreaHeight, 32, 32);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();
     }
 
@@ -171,6 +175,7 @@ public class OptionsScreen extends Screen {
         availableList.render(context, mouseX, mouseY, delta);
 
         Text title = Text.translatable("gui.microhud.configuration.title");
+        
         MHGuiUtil.drawText(context, textRenderer, title, ((this.width - textRenderer.getWidth(title.getString())) / 2), padding, 0xFFFFFF, false);
 
         MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false);

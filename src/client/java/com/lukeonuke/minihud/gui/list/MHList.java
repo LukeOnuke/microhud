@@ -17,7 +17,7 @@ import net.minecraft.text.Text;
 public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
     public MHList(MinecraftClient client, int width, int height, int top, int bottom, int itemHeight) {
         super(client, width, height, top, itemHeight);
-        this.setRenderBackground(false);
+
         this.setRenderHeader(false, 0);
 //        this.setRenderHorizontalShadows(false);
 //        this.setRenderSelection(true);
@@ -31,6 +31,11 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
     @Override
     public boolean removeEntry(Entry entry) {
         return super.removeEntry(entry);
+    }
+
+    @Override
+    protected void drawMenuListBackground(DrawContext context) {
+
     }
 
     public void removeEntryByRenderer(MicroHudRendererModule rendererModule) {
