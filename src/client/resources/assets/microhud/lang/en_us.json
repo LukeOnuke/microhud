@@ -7,5 +7,6 @@
   "gui.microhud.configuration.selected": "Selected lines (preview)",
   "gui.microhud.configuration.tip": "Use the U and D buttons to lines move up and down. To move lines between available and selected click on the text of the line. See and configure keybinds in microhud category of key bind settings.",
   "gui.microhud.configuration.renderDisabled": "Microhud render is currently disabled, press %s to enable it.",
-  "gui.microhud.configuration.privacyPolicy": "Weather Privacy Policy"
+  "gui.microhud.configuration.privacyPolicy": "Weather Privacy Policy",
+  "narration.microhud.mhlist": "List of available elements."
 }

@@ -1,6 +1,5 @@
 package com.lukeonuke.minihud.gui;
 
-import com.lukeonuke.minihud.MicroHudColors;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
@@ -17,15 +16,15 @@ public class MHGuiUtil {
         return hovered;
     }
 
-    public static void drawText(DrawContext context, TextRenderer textRenderer, Text text, int xPos, int yPos, int color, boolean shadow){
+    public static void drawText(DrawContext context, TextRenderer textRenderer, Text text, int xPos, int yPos, int color, boolean shadow) {
         context.drawText(textRenderer, text, xPos, yPos, color, shadow);
     }
 
-    public static void drawText(DrawContext context, TextRenderer textRenderer, String text, int xPos, int yPos, int color, boolean shadow){
+    public static void drawText(DrawContext context, TextRenderer textRenderer, String text, int xPos, int yPos, int color, boolean shadow) {
         drawText(context, textRenderer, Text.of(text), xPos, yPos, color, shadow);
     }
 
-    public static void drawText(DrawContext context, TextRenderer textRenderer, String text, int xPos, int yPos, int color){
+    public static void drawText(DrawContext context, TextRenderer textRenderer, String text, int xPos, int yPos, int color) {
         drawText(context, textRenderer, text, xPos, yPos, color, true);
     }
 }

@@ -1,21 +1,17 @@
 package com.lukeonuke.minihud.mixin;
 
 import com.lukeonuke.minihud.data.MicroHudOptions;
-import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.service.NameLookupData;
 import com.lukeonuke.minihud.service.NameLookupService;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -28,8 +24,9 @@ public abstract class EntityRenderer<T extends net.minecraft.entity.Entity, S ex
     @Shadow
     public abstract TextRenderer getTextRenderer();
 
-    @Shadow @Final private S state;
+    @Unique
     private final NameLookupService nameLookupService = NameLookupService.getInstance();
+    @Unique
     private final MicroHudOptions options = MicroHudOptions.getInstance();
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V"), method = "renderLabelIfPresent")

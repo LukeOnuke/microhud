@@ -11,16 +11,13 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
-    public MHList(MinecraftClient client, int width, int height, int top, int bottom, int itemHeight) {
+    public MHList(MinecraftClient client, int width, int height, int top, int itemHeight) {
         super(client, width, height, top, itemHeight);
 
         this.setRenderHeader(false, 0);
-//        this.setRenderHorizontalShadows(false);
-//        this.setRenderSelection(true);
     }
 
     @Override
@@ -35,39 +32,30 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
 
     @Override
     protected void drawMenuListBackground(DrawContext context) {
-
+        // Remove background.
     }
 
-    public void removeEntryByRenderer(MicroHudRendererModule rendererModule) {
-        for (Entry entry : children()) {
-            if (entry.getRendererModule().equals(rendererModule)) removeEntry(entry);
-        }
-    }
-
-    public void addIfNotPresent(Entry entry) {
-        if (children().contains(entry)) return;
-        addEntry(entry);
+    @Override
+    protected void drawHeaderAndFooterSeparators(DrawContext context) {
+        // Remove that pesky line at the top of the list widget.
     }
 
     public static class Entry extends AlwaysSelectedEntryListWidget.Entry<Entry> implements AutoCloseable, Element {
         private final boolean showName;
-        private final boolean movableControls;
         @Getter
         private final MicroHudRendererModule rendererModule;
         private final TextRenderer textRenderer;
         private final MHList widget;
-        private final MinecraftClient client = MinecraftClient.getInstance();
 
-        public Entry(boolean showName, boolean movableControls, MicroHudRendererModule microHudRenderer, TextRenderer textRenderer, MHList widget) {
+        public Entry(boolean showName, MicroHudRendererModule microHudRenderer, TextRenderer textRenderer, MHList widget) {
             this.showName = showName;
-            this.movableControls = movableControls;
             this.rendererModule = microHudRenderer;
             this.textRenderer = textRenderer;
             this.widget = widget;
         }
 
         @Override
-        public void close() throws Exception {
+        public void close() {
 
         }
 
@@ -103,24 +91,6 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
             return getClass().getName() +
                     " - " +
                     rendererModule.getClass().getName();
-        }
-
-        private boolean isHovered(int x, int y, int entryWidth, int entryHeight, int mouseX, int mouseY) {
-            boolean hovered = false;
-            if (mouseX > x && mouseX < x + entryWidth) {
-                if (mouseY > y && mouseY < y + entryHeight) {
-                    hovered = true;
-                }
-            }
-
-            return hovered;
-        }
-
-        private void switchLists(int index, int desiredPos) {
-            if (desiredPos < 0 || desiredPos > widget.children().size() - 1) return;
-            MHList.Entry mem = widget.children().get(index);
-            widget.children().set(index, widget.children().get(desiredPos));
-            widget.children().set(desiredPos, mem);
         }
     }
 }
