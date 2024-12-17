@@ -3,8 +3,6 @@ package com.lukeonuke.minihud.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.lukeonuke.minihud.MicroHud;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -18,8 +16,8 @@ public class NameLookupService {
     private static NameLookupService instance;
     private final HttpClient client;
 
-    private ConcurrentHashMap<String, NameLookupData> cache = new ConcurrentHashMap<>();
-    private Vector<String> waiting = new Vector<>();
+    private final ConcurrentHashMap<String, NameLookupData> cache = new ConcurrentHashMap<>();
+    private final Vector<String> waiting = new Vector<>();
 
     private NameLookupService() {
         this.client = HttpClient.newBuilder()
@@ -37,7 +35,7 @@ public class NameLookupService {
     public NameLookupData getPlayerData(String uuid) {
         if (!cache.containsKey(uuid) && !waiting.contains(uuid)) {
             waiting.add(uuid);
-            MicroHud.LOGGER.info("Player joined " + uuid);
+            MicroHud.LOGGER.info("Player joined {}", uuid);
             String url = "https://cache.samifying.com/api/data/uuid/" + uuid;
             HttpRequest req = HttpRequest.newBuilder()
                     .uri(URI.create(url))

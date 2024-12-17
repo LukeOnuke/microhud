@@ -2,11 +2,15 @@ package com.lukeonuke.minihud.service;
 
 import com.lukeonuke.minihud.renderer.module.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
 public class OptionsService {
+    @Setter
+    @Getter
     private ArrayList<String> enabledRenderers;
+    @Setter
     @Getter
     private int schema;
 
@@ -28,17 +32,5 @@ public class OptionsService {
         optionsHolder.setEnabledRenderers(renderers);
         optionsHolder.enabledPlayerDiscordTag = true;
         return optionsHolder;
-    }
-
-    public ArrayList<String> getEnabledRenderers() {
-        return enabledRenderers;
-    }
-
-    public void setEnabledRenderers(ArrayList<String> enabledRenderers) {
-        this.enabledRenderers = enabledRenderers;
-    }
-
-    public void setSchema(int schema) {
-        this.schema = schema;
     }
 }

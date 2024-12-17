@@ -24,12 +24,13 @@ public class WeatherService {
 
     private WeatherService() {
         Timer timer = new Timer();
+        // 3600000ms = 1h; Weather api-s are expensive.
         timer.schedule(new TimerTask() {
                            @Override
                            public void run() {
                                refreshWeather();
                            }
-                       }, 0L, 1200000L
+                       }, 0L, 3600000L
         );
     }
 
@@ -52,7 +53,7 @@ public class WeatherService {
                 weather.getCurrent().setWindDirectionTranslated(angleToDirection(weather.getCurrent().getWind_deg()));
                 isReady = true;
             } catch (IOException | InterruptedException e) {
-                MicroHud.LOGGER.warn("Failed to fetch weather: " + e.getMessage()  + ". You can probably disregard this message.");
+                MicroHud.LOGGER.warn("Failed to fetch weather: {}. You can probably disregard this message.", e.getMessage());
             }
         }).start();
     }

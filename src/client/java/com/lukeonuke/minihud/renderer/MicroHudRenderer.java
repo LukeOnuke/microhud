@@ -4,6 +4,8 @@ import com.lukeonuke.minihud.MicroHudColors;
 import com.lukeonuke.minihud.data.MicroHudOptions;
 import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.renderer.module.*;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -30,10 +32,6 @@ public class MicroHudRenderer {
         return instance;
     }
 
-    public ArrayList<MicroHudRendererModule> getRendererModules() {
-        return rendererModules;
-    }
-
     public static ArrayList<MicroHudRendererModule> getAvailableRendererModules(){
         ArrayList<MicroHudRendererModule> availableRendererModules = new ArrayList<>();
 
@@ -52,6 +50,7 @@ public class MicroHudRenderer {
     }
 
     final private TextRenderer RENDERER = MinecraftClient.getInstance().inGameHud.getTextRenderer();
+    @Getter
     private final ArrayList<MicroHudRendererModule> rendererModules = new ArrayList<>();
     public boolean isModuleEnabled(Class<? extends MicroHudRendererModule> c){
         for (MicroHudRendererModule rendererModule:
@@ -71,6 +70,7 @@ public class MicroHudRenderer {
         module.onEnable(false);
     }
 
+    @Setter
     private boolean enabled = true;
 
     public void register(MicroHudRendererModule microHudRendererModule){
@@ -81,22 +81,18 @@ public class MicroHudRenderer {
         if (!enabled) return;
 
         int statusEffectOffset = 0;
-        if (Objects.nonNull(client.player) && client.player.getStatusEffects().size() > 0) statusEffectOffset = (int) (RENDERER.fontHeight * 2.8);
+        if (Objects.nonNull(client.player) && !client.player.getStatusEffects().isEmpty()) statusEffectOffset = (int) (RENDERER.fontHeight * 2.8);
         String text;
         for(int i = 0; i < rendererModules.size(); i++){
             text = rendererModules.get(i).render(deltaT);
             if (Objects.isNull(text)) continue;
             MHGuiUtil.drawText(context, RENDERER, text, scaledWidth - RENDERER.getWidth(text) - 5, i * RENDERER.fontHeight + 5 + statusEffectOffset, MicroHudColors.WHITE);
-            //RENDERER.drawWithOutline(Text.of(text).asOrderedText(), scaledWidth - RENDERER.getWidth(text) - 5, i * RENDERER.fontHeight + 5 + statusEffectOffset, 0xFFFFFFFF, 0xFFFFFFFF, context.getMatrices().peek().getPositionMatrix(), context.getVertexConsumers(), 16);
         }
 
         //flag for gcc
         text = null;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
     public boolean getEnabled() {return enabled;}
 
     public void toggleEnabled(){
