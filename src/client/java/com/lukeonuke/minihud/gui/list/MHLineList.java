@@ -50,7 +50,6 @@ public class MHLineList implements Drawable, Selectable, Element {
 
             //right side
             MHGuiUtil.drawText(context, textRenderer, modules.get(i).render(delta), xPos, yPos, color, true);
-            //textRenderer.draw(modules.get(i).render(delta), xPos, yPos, color, true, context.getMatrices().peek().getPositionMatrix(), context.getVertexConsumers(), TextRenderer.TextLayerType.SEE_THROUGH, MicroHudColors.TRANSPARENT, MicroHudColors.LIGHT);
         }
     }
 

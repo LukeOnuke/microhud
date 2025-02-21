@@ -1,6 +1,5 @@
 package com.lukeonuke.minihud.gui.list;
 
-import com.lukeonuke.minihud.MicroHud;
 import com.lukeonuke.minihud.MicroHudColors;
 import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
@@ -16,8 +15,6 @@ import net.minecraft.text.Text;
 public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
     public MHList(MinecraftClient client, int width, int height, int top, int itemHeight) {
         super(client, width, height, top, itemHeight);
-
-        this.setRenderHeader(false, 0);
     }
 
     @Override
@@ -80,7 +77,6 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
 
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
-            MicroHud.LOGGER.info("Click {}", this);
             MicroHudRenderer.getInstance().enableRendererModule(rendererModule);
             widget.removeEntry(this);
             return false;

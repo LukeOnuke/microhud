@@ -43,6 +43,6 @@ public class MicroHud implements ModInitializer {
             if (toggleRenderer.wasPressed()) MicroHudRenderer.getInstance().toggleEnabled();
         });
 
-        LOGGER.info("Microhud initialised");
+        LOGGER.info("Microhud initialised!");
     }
 }

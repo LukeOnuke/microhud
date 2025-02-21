@@ -45,7 +45,6 @@ public class OptionsScreen extends Screen {
             exit(true);
         }).dimensions(this.width - 100 - padding, this.height - 20 - padding, 100, 20).build());
 
-        //padding, this.height - 20 - padding, 100, 20, ScreenTexts.CANCEL
         this.addDrawableChild(new ButtonWidget.Builder(ScreenTexts.CANCEL, (event) -> {
             MicroHud.LOGGER.info("Canceled options screen");
             exit(false);
@@ -135,7 +134,7 @@ public class OptionsScreen extends Screen {
         MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.selected"), this.width / 2, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false);
 
         if (!wasLineRendererEnabled)
-            MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new Object[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3, MicroHudColors.RED);
+            MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new String[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3, MicroHudColors.RED);
 
         super.render(context, mouseX, mouseY, delta);
     }

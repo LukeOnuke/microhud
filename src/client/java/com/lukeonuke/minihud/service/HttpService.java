@@ -49,14 +49,4 @@ public class HttpService {
         }
         throw new RuntimeException("Response code " + code);
     }
-
-    public void post(String url, Object body){
-        HttpRequest req = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(body)))
-                .build();
-
-        client.sendAsync(req, HttpResponse.BodyHandlers.ofString());
-    }
 }

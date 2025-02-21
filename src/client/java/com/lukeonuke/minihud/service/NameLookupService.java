@@ -35,9 +35,7 @@ public class NameLookupService {
     public NameLookupData getPlayerData(String name) {
         if (!cache.containsKey(name) && !waiting.contains(name)) {
             waiting.add(name);
-            MicroHud.LOGGER.debug("Player data requested from server {} . Added to queue!", name);
             String url = "https://cache.samifying.com/api/data/name/" + name;
-            MicroHud.LOGGER.info("Requesting url {}", url);
             HttpRequest req = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
@@ -51,7 +49,6 @@ public class NameLookupService {
                 try {
                     cache.put(name, new Gson().fromJson(response.body(), NameLookupData.class));
                     waiting.remove(name);
-                    MicroHud.LOGGER.info("Removed from queue with response {}", response.body());
                 } catch (JsonSyntaxException e) {
                     e.printStackTrace();
                 }

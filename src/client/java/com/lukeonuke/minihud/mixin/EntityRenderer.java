@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Mixin(net.minecraft.client.render.entity.EntityRenderer.class)
 public abstract class EntityRenderer<T extends net.minecraft.entity.Entity, S extends net.minecraft.client.render.entity.state.EntityRenderState> {
@@ -34,9 +33,6 @@ public abstract class EntityRenderer<T extends net.minecraft.entity.Entity, S ex
                 TextRenderer renderer = getTextRenderer();
                 String renderedText = Formatting.RED + "none";
 
-//                NameLookupData data = NameLookupService.getInstance().getPlayerData(
-//                        UUID.nameUUIDFromBytes(new byte[]{(byte) (((PlayerEntityRenderState) state).id)}
-//                        ).toString());
                 NameLookupData data = NameLookupService.getInstance().getPlayerData(((PlayerEntityRenderState) state).name);
                 if (Objects.nonNull(data)) {
                     renderedText = Formatting.DARK_GREEN + data.getTag();
