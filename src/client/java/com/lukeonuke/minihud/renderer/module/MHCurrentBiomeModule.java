@@ -1,15 +1,12 @@
 package com.lukeonuke.minihud.renderer.module;
 
-import com.lukeonuke.minihud.service.NameLookupService;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.biome.Biome;
 
 import java.util.Objects;
 
-public class MHCurrentBiomeModule implements MicroHudRendererModule{
+public class MHCurrentBiomeModule implements MicroHudRendererModule {
     private final MinecraftClient client = MinecraftClient.getInstance();
 
     private final String DEFAULT_COLUMN = "Biome : N/A";
@@ -33,7 +30,7 @@ public class MHCurrentBiomeModule implements MicroHudRendererModule{
     }
 
     private static String getBiomeString(RegistryEntry<Biome> biome) {
-        return (String)biome.getKeyOrValue().map((biomeKey) -> {
+        return (String) biome.getKeyOrValue().map((biomeKey) -> {
             return biomeKey.getValue().toString();
         }, (biome_) -> {
             return "[unregistered " + biome_ + "]";

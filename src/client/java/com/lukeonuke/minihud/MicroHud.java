@@ -19,8 +19,11 @@ public class MicroHud implements ModInitializer {
     public static KeyBinding toggleRenderer;
 
     public static final int PADDING = 5;
+
     @Override
     public void onInitialize() {
+        MicroHudOptions.getInstance().refresh();
+
         toggleOptionsScreen = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.microhud.toggleOptionsScreen", // The translation key of the keybinding's name
                 InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
@@ -39,8 +42,6 @@ public class MicroHud implements ModInitializer {
             if (toggleOptionsScreen.wasPressed()) client.setScreen(new OptionsScreen());
             if (toggleRenderer.wasPressed()) MicroHudRenderer.getInstance().toggleEnabled();
         });
-
-        MicroHudOptions.getInstance().refresh();
 
         LOGGER.info("Microhud initialised");
     }

@@ -25,8 +25,6 @@ public abstract class EntityRenderer<T extends net.minecraft.entity.Entity, S ex
     public abstract TextRenderer getTextRenderer();
 
     @Unique
-    private final NameLookupService nameLookupService = NameLookupService.getInstance();
-    @Unique
     private final MicroHudOptions options = MicroHudOptions.getInstance();
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V"), method = "renderLabelIfPresent")
@@ -36,7 +34,10 @@ public abstract class EntityRenderer<T extends net.minecraft.entity.Entity, S ex
                 TextRenderer renderer = getTextRenderer();
                 String renderedText = Formatting.RED + "none";
 
-                NameLookupData data = nameLookupService.getPlayerData(UUID.nameUUIDFromBytes(new byte[]{(byte) (((PlayerEntityRenderState) state).id)}).toString());
+//                NameLookupData data = NameLookupService.getInstance().getPlayerData(
+//                        UUID.nameUUIDFromBytes(new byte[]{(byte) (((PlayerEntityRenderState) state).id)}
+//                        ).toString());
+                NameLookupData data = NameLookupService.getInstance().getPlayerData(((PlayerEntityRenderState) state).name);
                 if (Objects.nonNull(data)) {
                     renderedText = Formatting.DARK_GREEN + data.getTag();
                 }

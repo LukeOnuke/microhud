@@ -32,29 +32,32 @@ public class NameLookupService {
         return instance;
     }
 
-    public NameLookupData getPlayerData(String uuid) {
-        if (!cache.containsKey(uuid) && !waiting.contains(uuid)) {
-            waiting.add(uuid);
-            MicroHud.LOGGER.info("Player joined {}", uuid);
-            String url = "https://cache.samifying.com/api/data/uuid/" + uuid;
+    public NameLookupData getPlayerData(String name) {
+        if (!cache.containsKey(name) && !waiting.contains(name)) {
+            waiting.add(name);
+            MicroHud.LOGGER.debug("Player data requested from server {} . Added to queue!", name);
+            String url = "https://cache.samifying.com/api/data/name/" + name;
+            MicroHud.LOGGER.info("Requesting url {}", url);
             HttpRequest req = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
             client.sendAsync(req, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
+                MicroHud.LOGGER.info("Resposne code {}", response.statusCode());
                 // Generating response based of status codes
                 if (response.statusCode() != 200) return;
                 // Response is OK
                 try {
-                    cache.put(uuid, new Gson().fromJson(response.body(), NameLookupData.class));
-                    waiting.remove(uuid);
+                    cache.put(name, new Gson().fromJson(response.body(), NameLookupData.class));
+                    waiting.remove(name);
+                    MicroHud.LOGGER.info("Removed from queue with response {}", response.body());
                 } catch (JsonSyntaxException e) {
-                    MicroHud.LOGGER.error("EXCEPTION : " + e);
+                    e.printStackTrace();
                 }
 
             });
         }
-        return cache.get(uuid);
+        return cache.get(name);
     }
 }
