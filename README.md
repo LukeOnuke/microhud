@@ -3,7 +3,7 @@ The tiniest mini f3 mod for minecraft.
 In fact, you could fit ***~30 packages of the mod into a 
 5 1/4in floppy drive.***
 
-![img_1.png](https://cdn.modrinth.com/data/AVJwF0KA/images/0a869a93231c2d4e640130fb23882c2736dcac02.png)
+![image of microhud line renderer in action](https://cdn.modrinth.com/data/AVJwF0KA/images/a0b44d1ffd14298ee4b1f1fe0113c7ea36824d05.png)
 
 # Keybinds
 *You can change all these in the settings>keybinds menu* 
