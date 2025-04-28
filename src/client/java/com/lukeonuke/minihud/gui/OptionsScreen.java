@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class OptionsScreen extends Screen {
     private final int padding = 8;
     private MHList availableList;
+    private MHLineList selectedList;
     private MicroHudRenderer renderer;
     final private MicroHudOptions microHudOptions = MicroHudOptions.getInstance();
 
@@ -79,7 +80,7 @@ public class OptionsScreen extends Screen {
         this.addSelectableChild(availableList);
         availableList.setX(padding); //set left pos
 
-        this.addDrawableChild(new MHLineList(this.width / 2, (textRenderer.fontHeight + padding) * 2 + padding * 2, textRenderer, availableList));
+        selectedList = this.addDrawableChild(new MHLineList(this.width / 2, (textRenderer.fontHeight + padding) * 2 + padding * 2, textRenderer, availableList));
 
         refreshLists();
         wasLineRendererEnabled = renderer.getEnabled();
@@ -137,6 +138,14 @@ public class OptionsScreen extends Screen {
             MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new String[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3, MicroHudColors.RED);
 
         super.render(context, mouseX, mouseY, delta);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        // For some reason the mouseclicked event doesn't trigger. We call it manually then, no worries.
+        selectedList.mouseClicked(mouseX, mouseY, button);
+
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

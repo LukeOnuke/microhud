@@ -66,8 +66,9 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
             int color = 0xFFFFFF;
             if (hovered) {
                 color = MicroHudColors.HOVER;
+                // Background highlight on cover.
+                //context.fill(x, y, x + entryWidth, y + entryHeight, -1, MicroHudColors.TRANSLUCENT);
             }
-
 
             String text = rendererModule.getName();
             if (!showName) text = rendererModule.render(tickDelta);

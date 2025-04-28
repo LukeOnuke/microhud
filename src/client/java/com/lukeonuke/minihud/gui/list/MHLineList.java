@@ -1,5 +1,6 @@
 package com.lukeonuke.minihud.gui.list;
 
+import com.lukeonuke.minihud.MicroHud;
 import com.lukeonuke.minihud.MicroHudColors;
 import com.lukeonuke.minihud.gui.MHGuiUtil;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
@@ -45,8 +46,11 @@ public class MHLineList implements Drawable, Selectable, Element {
             yPos = padding * (i + 1) + textRenderer.fontHeight * i;
             yPos += y;
             renderButtons(context, yPos);
-            if (MHGuiUtil.isHovered(xPos, yPos, client.currentScreen.width / 2, textRenderer.fontHeight, mouseX, mouseY))
+            if (MHGuiUtil.isHovered(xPos, yPos, client.currentScreen.width / 2, textRenderer.fontHeight, mouseX, mouseY)) {
                 color = MicroHudColors.HOVER;
+                // Background highlight on hover
+                //context.fill(xPos, yPos,  xPos + client.currentScreen.width / 2, yPos + textRenderer.fontHeight, -1, MicroHudColors.TRANSLUCENT);
+            }
 
             //right side
             MHGuiUtil.drawText(context, textRenderer, modules.get(i).render(delta), xPos, yPos, color, true);
