@@ -37,7 +37,8 @@ public abstract class EntityRenderer<T extends net.minecraft.entity.Entity, S ex
                 if (Objects.nonNull(data)) {
                     renderedText = Formatting.DARK_GREEN + data.getTag();
                 }
-                renderer.draw(Text.of(renderedText), -renderer.getWidth(renderedText) / 2F, renderer.fontHeight * 1.2F, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.SEE_THROUGH, 0x00FFFFFF, light, true);
+
+                renderer.draw(Text.of(renderedText), -renderer.getWidth(renderedText) / 2F, renderer.fontHeight * 1.2F, 0xFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.SEE_THROUGH, 0x00FFFFFF, light);
             }
         }
     }

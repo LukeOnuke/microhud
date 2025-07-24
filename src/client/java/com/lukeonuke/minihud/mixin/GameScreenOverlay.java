@@ -26,7 +26,7 @@ public class GameScreenOverlay {
     @Inject(at = @At("TAIL"), method = "render")
     void renderMicroHud(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         if (!(debugHud.shouldShowDebugHud() || this.client.options.hudHidden))
-            MicroHudRenderer.getInstance().render(context, tickCounter.getTickDelta(false), context.getScaledWindowWidth());
+            MicroHudRenderer.getInstance().render(context, tickCounter.getFixedDeltaTicks(), context.getScaledWindowWidth());
     }
 
 }

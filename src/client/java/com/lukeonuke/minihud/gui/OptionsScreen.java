@@ -111,10 +111,10 @@ public class OptionsScreen extends Screen {
 
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-        context.fill(0, 0, this.width, this.height, -1, MicroHudColors.TRANSLUCENT);
-        context.fill(0, 0, this.width, padding * 2 + textRenderer.fontHeight, -1, MicroHudColors.TRANSLUCENT);
+        context.fill(0, 0, this.width, this.height,  MicroHudColors.TRANSLUCENT);
+        context.fill(0, 0, this.width, padding * 2 + textRenderer.fontHeight, MicroHudColors.TRANSLUCENT);
         int bottomDarkerAreaHeight = 20 + textRenderer.fontHeight + padding * 3;
-        context.fill(0, this.height - bottomDarkerAreaHeight, this.width, this.height, -1, MicroHudColors.TRANSLUCENT);
+        context.fill(0, this.height - bottomDarkerAreaHeight, this.width, this.height, MicroHudColors.TRANSLUCENT);
     }
 
 
