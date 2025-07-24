@@ -63,7 +63,7 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
 
         @Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            int color = 0xFFFFFF;
+            int color = MicroHudColors.WHITE;
             if (hovered) {
                 color = MicroHudColors.HOVER;
                 // Background highlight on cover.

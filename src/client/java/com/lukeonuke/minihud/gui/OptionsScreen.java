@@ -129,10 +129,10 @@ public class OptionsScreen extends Screen {
 
         Text title = Text.translatable("gui.microhud.configuration.title");
 
-        MHGuiUtil.drawText(context, textRenderer, title, ((this.width - textRenderer.getWidth(title.getString())) / 2), padding, 0xFFFFFF, false);
+        MHGuiUtil.drawText(context, textRenderer, title, ((this.width - textRenderer.getWidth(title.getString())) / 2), padding, MicroHudColors.WHITE, false);
 
-        MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false);
-        MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.selected"), this.width / 2, padding * 3 + textRenderer.fontHeight, 0xFFFFFF, false);
+        MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.available"), padding, padding * 3 + textRenderer.fontHeight, MicroHudColors.WHITE, false);
+        MHGuiUtil.drawText(context, textRenderer, Text.translatable("gui.microhud.configuration.selected"), this.width / 2, padding * 3 + textRenderer.fontHeight, MicroHudColors.WHITE, false);
 
         if (!wasLineRendererEnabled)
             MHGuiUtil.drawText(context, textRenderer, MutableText.of(new TranslatableTextContent("gui.microhud.configuration.renderDisabled", null, new String[]{MicroHud.toggleRenderer.getBoundKeyLocalizedText().getString()})).getString(), padding, padding * 3, MicroHudColors.RED);
