@@ -7,10 +7,7 @@ import com.lukeonuke.minihud.renderer.MicroHudRenderer;
 import com.lukeonuke.minihud.renderer.module.MicroHudRendererModule;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Drawable;
-import net.minecraft.client.gui.Element;
-import net.minecraft.client.gui.Selectable;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 
 import java.util.ArrayList;
@@ -58,8 +55,11 @@ public class MHLineList implements Drawable, Selectable, Element {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(Click click, boolean doubled) {
         if (Objects.isNull(client.currentScreen)) return false;
+
+        double mouseX = click.x();
+        double mouseY = click.y();
 
         if (mouseX < client.currentScreen.width / 1.75) return false;
         int top;
@@ -83,9 +83,8 @@ public class MHLineList implements Drawable, Selectable, Element {
                 }
             }
         }
-        //}
 
-        return Element.super.mouseClicked(mouseX, mouseY, button);
+        return Element.super.mouseClicked(click, doubled);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.lukeonuke.minihud.gui.list.MHLineList;
 import com.lukeonuke.minihud.gui.list.MHList;
 import com.lukeonuke.minihud.gui.list.ScrollingText;
 import com.lukeonuke.minihud.renderer.MicroHudRenderer;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -88,7 +89,7 @@ public class OptionsScreen extends Screen {
     }
 
     public void refreshLists() {
-        availableList.children().clear();
+        // availableList.children().clear();
         MicroHudRenderer.getAvailableRendererModules().forEach(rendererModule -> {
             AtomicBoolean contains = new AtomicBoolean(false);
             renderer.getRendererModules().forEach(enabledModules -> {
@@ -141,11 +142,10 @@ public class OptionsScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        // For some reason the mouseclicked event doesn't trigger. We call it manually then, no worries.
-        selectedList.mouseClicked(mouseX, mouseY, button);
+    public boolean mouseClicked(Click click, boolean doubled) {
+        selectedList.mouseClicked(click, doubled);
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.lukeonuke.minihud.renderer.module.MicroHudRendererModule;
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
@@ -23,8 +24,8 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
     }
 
     @Override
-    public boolean removeEntry(Entry entry) {
-        return super.removeEntry(entry);
+    public void removeEntry(Entry entry) {
+        super.removeEntry(entry);
     }
 
     @Override
@@ -62,22 +63,7 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            int color = MicroHudColors.WHITE;
-            if (hovered) {
-                color = MicroHudColors.HOVER;
-                // Background highlight on cover.
-                //context.fill(x, y, x + entryWidth, y + entryHeight, -1, MicroHudColors.TRANSLUCENT);
-            }
-
-            String text = rendererModule.getName();
-            if (!showName) text = rendererModule.render(tickDelta);
-            MHGuiUtil.drawText(context, textRenderer, text, (int) (entryWidth * 0.25 + x), y, color);
-        }
-
-
-        @Override
-        public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        public boolean mouseClicked(Click click, boolean doubled) {
             MicroHudRenderer.getInstance().enableRendererModule(rendererModule);
             widget.removeEntry(this);
             return false;
@@ -88,6 +74,20 @@ public class MHList extends AlwaysSelectedEntryListWidget<MHList.Entry> {
             return getClass().getName() +
                     " - " +
                     rendererModule.getClass().getName();
+        }
+
+        @Override
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            int color = MicroHudColors.WHITE;
+            if (hovered) {
+                color = MicroHudColors.HOVER;
+                // Background highlight on cover.
+                //context.fill(x, y, x + entryWidth, y + entryHeight, -1, MicroHudColors.TRANSLUCENT);
+            }
+
+            String text = rendererModule.getName();
+            if (!showName) text = rendererModule.render(tickDelta);
+            MHGuiUtil.drawText(context, textRenderer, text, (int) (getWidth() * 0.25 + getX()), getY(), color);
         }
     }
 }
